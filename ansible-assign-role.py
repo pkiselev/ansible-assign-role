@@ -121,6 +121,8 @@ def prepare_parser(parser):
                         help="verbose mode (-vvv for more, -vvvv to enable"
                         "connection debugging)",
                         action='count', default=0)
+    parser.add_argument('-l', '--limit', default=None, dest='subset',
+                        help='further limit selected hosts to an additional pattern')
 
 
 def main():
@@ -168,6 +170,8 @@ def main():
         variable_manager=variable_manager,
         host_list=args.inventory
     )
+
+    inventory.subset(args.subset)
 
     play_source = dict(
         name="Assign roles %s" % args.roles,
